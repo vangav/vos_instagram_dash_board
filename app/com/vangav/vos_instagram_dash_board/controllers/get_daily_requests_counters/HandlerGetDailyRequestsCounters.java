@@ -50,6 +50,7 @@ package com.vangav.vos_instagram_dash_board.controllers.get_daily_requests_count
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.datastax.driver.core.BoundStatement;
@@ -127,11 +128,15 @@ public class HandlerGetDailyRequestsCounters extends CommonPlayHandler {
         toCalendar);
     
     // won't get more than 31 days per-request
-    calendarRange =
-      (ArrayList<Calendar>)calendarRange.subList(
+    
+    List<Calendar> tempCalendarRange =
+      calendarRange.subList(
         0,
         Math.min(calendarRange.size(), 31) );
     
+    calendarRange = new ArrayList<Calendar>();
+    calendarRange.addAll(tempCalendarRange);
+
     // make partition keys
     
     ArrayList<String> partitionKeys = new ArrayList<String>();

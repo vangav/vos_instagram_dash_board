@@ -49,6 +49,7 @@ package com.vangav.vos_instagram_dash_board.controllers.get_daily_users_error_lo
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 import com.datastax.driver.core.BoundStatement;
@@ -175,10 +176,14 @@ public class HandlerGetDailyUsersErrorLogs extends CommonPlayHandler {
         toCalendar);
     
     // won't get more than 31 days per-request
-    calendarRange =
-      (ArrayList<Calendar>)calendarRange.subList(
+    
+    List<Calendar> tempCalendarRange =
+      calendarRange.subList(
         0,
         Math.min(calendarRange.size(), 31) );
+    
+    calendarRange = new ArrayList<Calendar>();
+    calendarRange.addAll(tempCalendarRange);
     
     // make partition keys
     
